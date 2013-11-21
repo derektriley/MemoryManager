@@ -1,14 +1,14 @@
 #include <iostream>
-#include "MemoryManager.h"
 #include <stdio.h>
 #include <tchar.h>
+#include "MineSweeperMemory.h"
 
 using namespace std;
 
 int main(int argc, char **argv) 
 {
+	MineSweeperMemory mine;
 	cout << "Minesweeper hack.\n";
-	MemoryManager mine(_T("Minesweeper"), _T("minesweeper.exe"));
 	cout << "\nAttached.\n";
 	cout << "Base address: 0x" << hex << mine.getBaseAddress() << endl;
 	cout << "PID: " << dec << mine.getPID() << endl;

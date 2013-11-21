@@ -12,9 +12,8 @@ public:
     MemoryManager(CONST TCHAR* name, TCHAR* nameExe);
 
     int readInt(DWORD address);
-	int MemoryManager::readMines();
-	void MemoryManager::writeMines(int value);
 	HWND getHWND();
 	DWORD getPID();
 	DWORD getBaseAddress();
+	HANDLE MemoryManager::getPhandle();
 };

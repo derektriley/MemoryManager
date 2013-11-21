@@ -82,7 +82,6 @@ MemoryManager::MemoryManager(CONST TCHAR* name, TCHAR* nameExe) {
 	  CloseHandle( hModuleSnap ); 
 }
 
-
 int MemoryManager::readInt(DWORD address) {
     int result, rm;
 	rm = ReadProcessMemory(phandle, (void *) address, &result, sizeof(int), 0);
@@ -90,36 +89,6 @@ int MemoryManager::readInt(DWORD address) {
 		cout << "ReadProcessMemory failed.\n";
 	}
 	return result;
-}
-
-int MemoryManager::readMines() {
-	DWORD staticOffset = 0x000AAC18;
-	DWORD offset0 = 0x70;
-	DWORD offset1 = 0x0;
-	DWORD offset2 = 0x38;
-	DWORD offset3 = 0x8;
-	DWORD result;
-	int value;
-	ReadProcessMemory(phandle, (void *) (baseAddress + staticOffset), &result, sizeof(DWORD), 0);
-	ReadProcessMemory(phandle, (void *) (result + offset0), &result, sizeof(DWORD), 0);
-	ReadProcessMemory(phandle, (void *) (result + offset1), &result, sizeof(DWORD), 0);
-	ReadProcessMemory(phandle, (void *) (result + offset2), &result, sizeof(DWORD), 0);
-	ReadProcessMemory(phandle, (void *) (result + offset3), &value, sizeof(int), 0);
-	return value;
-}
-
-void MemoryManager::writeMines(int value) {
-	DWORD staticOffset = 0x000AAC18;
-	DWORD offset0 = 0x70;
-	DWORD offset1 = 0x0;
-	DWORD offset2 = 0x38;
-	DWORD offset3 = 0x8;
-	DWORD result;
-	ReadProcessMemory(phandle, (void *) (baseAddress + staticOffset), &result, sizeof(DWORD), 0);
-	ReadProcessMemory(phandle, (void *) (result + offset0), &result, sizeof(DWORD), 0);
-	ReadProcessMemory(phandle, (void *) (result + offset1), &result, sizeof(DWORD), 0);
-	ReadProcessMemory(phandle, (void *) (result + offset2), &result, sizeof(DWORD), 0);
-	WriteProcessMemory(phandle, (void *) (result + offset3), &value, sizeof(int), 0);
 }
 
 HWND MemoryManager::getHWND()
@@ -138,6 +107,10 @@ DWORD MemoryManager::getBaseAddress()
 
 }
 
+HANDLE MemoryManager::getPhandle() 
+{
+	return phandle;
+}
 
 void printError( TCHAR* msg )
 {
